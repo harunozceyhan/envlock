@@ -70,6 +70,8 @@ enum Commands {
     },
 }
 
+// Read envlock.json file to get file paths if config file exists
+// Reading the config: cli path >> config.json >> default values
 fn load_config_or_defaults() -> (String, String, String) {
     if Path::new(DEFAULT_CONFIG_FILE).exists() {
         let content = fs::read_to_string(DEFAULT_CONFIG_FILE).unwrap();
