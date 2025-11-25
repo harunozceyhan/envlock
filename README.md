@@ -35,7 +35,7 @@ Planned future features:
 ### Download binary (Releases)
 
 See:
-👉 **[https://github.com/YOUR-USERNAME/envlock/releases](https://github.com/YOUR-USERNAME/envlock/releases)**
+👉 **[https://github.com/harunozceyhan/envlock/releases](https://github.com/harunozceyhan/envlock/releases)**
 
 Binaries provided for:
 
@@ -266,7 +266,7 @@ envlock diff --env .env --enc .envlock/prod.enc
 ## 🛠 Build from source
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/envlock
+git clone https://github.com/harunozceyhan/envlock
 cd envlock
 cargo build --release
 ```
