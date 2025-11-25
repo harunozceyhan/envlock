@@ -1,5 +1,17 @@
+use anyhow::{Context, Ok, Result};
 use colored::Colorize;
 use std::collections::HashMap;
+
+pub fn ensure_folders_of_path(file_path: &str) -> Result<()> {
+    let mut parts: Vec<&str> = file_path.split('/').collect();
+    parts.pop(); // Remove last
+    let folder_path = parts.join("/");
+
+    std::fs::create_dir_all(&folder_path)
+        .with_context(|| format!("Failed to create directory {}", folder_path))?;
+
+    Ok(())
+}
 
 pub fn parse_env(content: &str) -> HashMap<String, String> {
     let mut map = HashMap::new();

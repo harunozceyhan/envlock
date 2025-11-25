@@ -3,10 +3,10 @@ use std::{fs, path::Path};
 use crate::core;
 use clap::{Args, Parser, Subcommand};
 
-const DEFAULT_CONFIG_FILE: &str = "envlock.json";
 const DEFAULT_ENV_FILE: &str = ".env";
-const DEFAULT_ENC_FILE: &str = ".env.enc";
-const DEFAULT_META_FILE: &str = ".env.meta.json";
+const DEFAULT_ENC_FILE: &str = ".envlock/.env.enc";
+const DEFAULT_META_FILE: &str = ".envlock/.env.meta.json";
+const DEFAULT_CONFIG_FILE: &str = ".envlock/config.json";
 
 /// CLI definition
 #[derive(Parser, Debug)]
@@ -32,6 +32,9 @@ struct PathArgs {
 
 #[derive(Subcommand, Debug)]
 enum Commands {
+    /// Init EnvLock and create config file
+    Init {},
+
     /// Encrypt .env → .env.enc + .env.meta.json
     Lock {
         #[command(flatten)]
@@ -77,15 +80,15 @@ fn load_config_or_defaults() -> (String, String, String) {
         let content = fs::read_to_string(DEFAULT_CONFIG_FILE).unwrap();
         let cfg: serde_json::Value = serde_json::from_str(&content).unwrap();
 
-        let env = cfg["envFile"]
+        let env = cfg["env_file"]
             .as_str()
             .unwrap_or(DEFAULT_ENV_FILE)
             .to_string();
-        let enc = cfg["encFile"]
+        let enc = cfg["encrypted_file"]
             .as_str()
             .unwrap_or(DEFAULT_ENC_FILE)
             .to_string();
-        let meta = cfg["metaFile"]
+        let meta = cfg["meta_file"]
             .as_str()
             .unwrap_or(DEFAULT_META_FILE)
             .to_string();
@@ -113,6 +116,7 @@ pub fn run() -> Result<(), anyhow::Error> {
     };
 
     match cli.command {
+        Commands::Init {} => core::cmd_init(DEFAULT_ENV_FILE, DEFAULT_ENC_FILE, DEFAULT_META_FILE),
         Commands::Lock { paths, force } => {
             let (env, enc, meta) = resolve_paths(paths.env, paths.enc, paths.meta);
             core::cmd_lock(&env, &enc, &meta, force)
