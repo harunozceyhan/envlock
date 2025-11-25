@@ -78,7 +78,7 @@ Below are all core commands implemented so far.
 
 ---
 
-### ### 1. `envlock init`
+### 1. `envlock init`
 
 Initializes the project.
 
@@ -94,7 +94,7 @@ Creates:
 
 ---
 
-### ### 2. `envlock lock`
+### 2. `envlock lock`
 
 Encrypt your `.env` file.
 
@@ -125,7 +125,7 @@ envlock lock \
 
 ---
 
-### ### 3. `envlock unlock`
+### 3. `envlock unlock`
 
 Decrypt an encrypted `.env` file.
 
@@ -143,7 +143,7 @@ If `--force` is omitted and `.env` exists, EnvLock will ask for overwrite confir
 
 ---
 
-### ### 4. `envlock diff`
+### 4. `envlock diff`
 
 Show differences between **plaintext** and **encrypted** env.
 
@@ -165,7 +165,7 @@ This command:
 
 ---
 
-### ### 5. `envlock sync`
+### 5. `envlock sync`
 
 Encrypt and push encrypted files to Git.
 
